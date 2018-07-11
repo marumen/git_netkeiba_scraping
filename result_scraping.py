@@ -10,23 +10,52 @@ sleeptime = 5    # sleep time[s]
 
 ### public
 current_dir = os.getcwd()
-    
+output_dir = ""
+
+### def: print description of this file
+def description():
+    u"""
+    Description:
+    Get result of race from urls of "url_list.txt"
+    The "url_list.txt" is output file of Function.1
+
+    The output files are named from urls
+    They are made to "output" directory
+
+    ex.
+    url : http://db.netkeiba.com/race/201806010101/
+    output file : output/201806010101.csv
+
+    usage:
+    $ python result_scraping.py
+    """
+### end of def
+
 ### def: scraping of race data
 ### arg1(urls): url of race
 def scraping_racedata(urls):
-    print("scraping of " + urls)
-    html = urllib.request.urlopen(urls)
-    soup = BeautifulSoup(html,"html.parser")
+    print("scraping of " + urls.strip("\n"))
+
+    ## check urls
+    try:
+        html = urllib.request.urlopen(urls)
+    except urllib.error.URLError:
+        print("Skip!! url does not expect")
+        return -1
     
     ## storage to csv file
-    output_dir = current_dir + "/output"
-    if not os.path.isdir(output_dir):
-        os.makedirs(output_dir)
-
     output_file = urls.split("/")
+
+    ## check exist of file
+    if os.path.isfile(output_dir + "/" + output_file[-2] + ".csv"):
+        print("Skip!! Already exist the result file")
+        return -1
     
     fp = open(output_dir + "/" + output_file[-2] + ".csv","w")
     fp_writer = csv.writer(fp)
+
+    ## scraping data of urls
+    soup = BeautifulSoup(html,"html.parser")
     
     ## get area data
     ## ex. 東京
@@ -43,7 +72,7 @@ def scraping_racedata(urls):
 
     ## exclude race of "障害"
     if ("障" in cond_tmp[0]) == True:
-        print("exclude race of 障害")
+        print("Skip!! exclude race of 障害")
         return -1
         
     race_tmp = cond_race_tmp.find("dt")
@@ -91,7 +120,17 @@ def scraping_racedata(urls):
 ### def: main function
 ### arg: none
 def main():
+    global output_dir
+    
+    ## open urls file
     fp = open(current_dir + "/url_list.txt","r")
+
+    ## make "output" directory
+    output_dir = current_dir + "/output"
+    if not os.path.isdir(output_dir):
+        os.makedirs(output_dir)
+
+    ## Get result of race
     while True:
         url = fp.readline()
         if not url:
@@ -103,4 +142,5 @@ def main():
 
 ### run main function
 if __name__ == '__main__':
+    print(description.__doc__)
     main()

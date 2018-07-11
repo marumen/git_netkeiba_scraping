@@ -29,3 +29,25 @@ The [year] is possible to set from 1975 to this year
 ```
 $ python html_scraping.py 2017[year]
 ```
+
+<b>2. Get result of race</b>
+
++ Description
+
+```
+Get result of race from urls of "url_list.txt"
+The "url_list.txt" is output file of Function.1
+
+The output files are named from urls
+They are made to "output" directory
+
+ex.
+url : http://db.netkeiba.com/race/201806010101/
+output file : output/201806010101.csv
+```
+
++ usage
+
+```
+$ python result_scraping.py
+```
