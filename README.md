@@ -19,9 +19,9 @@ Successfully installed beautifulsoup4-4.6.0
 + Description
 
 ```
-Get urls of race from [year] to this year  
-Output file name is "url_list.txt"  
-The [year] is possible to set from 1975 to this year
+Get urls of race from [year] to this year.
+Output file name is "url_list.txt".
+The [year] is possible to set from 1975 to this year.
 ```
 
 + usage(example)
@@ -35,11 +35,12 @@ $ python html_scraping.py 2017[year]
 + Description
 
 ```
-Get result of race from urls of "url_list.txt"
-The "url_list.txt" is output file of Function.1
+Get result of race from urls of "url_list.txt".
+The "url_list.txt" is output file of Function.1.
 
-The output files are named from urls
-They are made to "output" directory
+The output files are named from urls.
+They are made to "output" directory.
+For sample see "output/sample.csv".
 
 ex.
 url : http://db.netkeiba.com/race/201806010101/
